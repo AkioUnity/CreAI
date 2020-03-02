@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CreAI - Analyze</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/analyzestyles.css">
+    <link rel="stylesheet" href="vendor/material-components-web.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <div class="d-flex justify-content-center pb-2 m-2" style="color: rgba(0,0,0,0.8)">
+        <h3>Analyze stock Performance</h3>
+    </div>
+    <div class="container">
+        <div class="form-group">
+            <div class="mdc-select w-100">
+                <i class="mdc-select__dropdown-icon"></i>
+                <select class="mdc-select__native-control" id="stocksList"
+                    onchange="updatePriceChart('min');updateSelected($('#btnSelectMin'))" required>
+                    <option value="" disabled selected></option>
+                </select>
+                <label class="mdc-floating-label">Select Stock</label>
+                <div class="mdc-line-ripple"></div>
+            </div>
+        </div>
+
+        <nav>
+            <div class="nav nav-pills nav-justified nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-price" role="tab"
+                    aria-selected="true">Stock Price</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-indicators" role="tab"
+                    aria-selected="false">Key Indicators</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-price" role="tabpanel">
+                <div class="btn-group btn-group-sm mt-2 d-flex" role="group" aria-label="...">
+                    <button type="button" class="btn btn-time-range"
+                        onclick="updatePriceChart('min');updateSelected(this)" id="btnSelectMin">Min</button>
+                    <button type="button" class="btn btn-time-range"
+                        onclick="updatePriceChart('week');updateSelected(this)">1 week</button>
+                    <button type="button" class="btn btn-time-range"
+                        onclick="updatePriceChart('month');updateSelected(this)">1
+                        month</button>
+                    <button type="button" class="btn btn-time-range"
+                        onclick="updatePriceChart('6months');updateSelected(this)">6
+                        months</button>
+                    <button type="button" class="btn btn-time-range"
+                        onclick="updatePriceChart('max');updateSelected(this)">Max</button>
+                </div>
+                <canvas id="priceChart">
+
+                </canvas>
+
+            </div>
+            <div class="tab-pane fade" id="nav-indicators" role="tabpanel">
+                <div class="form-group">
+                    <div class="mdc-select w-100">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <select class="mdc-select__native-control" id="indicatorsList"
+                            onchange="updateIndicatorChart(this)" required>
+                            <option value="" disabled selected></option>
+                            <option value="EMA">EMA - Exponential Moving Average</option>
+                            <option value="RSI">RSI - Relative Strength Index</option>
+                            <option value="SMA">SMA - Simple Moving Average/option>
+                        </select>
+                        <label class="mdc-floating-label">Select Indicator</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
+                <canvas id="indicatorChart">
+
+                </canvas>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Snackbar -->
+    <div class="mdc-snackbar">
+        <div class="mdc-snackbar__surface">
+            <div class="mdc-snackbar__label" role="status" aria-live="polite" id="snackbar-msg">
+                <!-- Snackbar message here populated through JS -->
+            </div>
+            <div class="mdc-snackbar__actions">
+                <button type="button" class="mdc-button mdc-snackbar__action">OK</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+<script src="vendor/material-components-web.min.js"></script>
+<script src="vendor/jquery-3.2.1.slim.min.js"></script>
+<script src="vendor/jquery.min.js"></script>
+<script src="vendor/popper.min.js"></script>
+<script src="vendor/bootstrap.min.js"></script>
+
+<script src="js/analyze.js"></script>
+
+
+</html>
