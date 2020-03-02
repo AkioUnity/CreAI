@@ -9,9 +9,10 @@ function createWindow() {
         width: 1800, height: 900,
         icon: path.join(__dirname, 'res', 'Stockifier.png'),
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            // devTools: false
         },
-        autoHideMenuBar: true,
+        // autoHideMenuBar: true,
         // transparent: true,
     })
     win.setMinimizable(false);
@@ -36,13 +37,13 @@ function createWindow() {
                 },
                 { role: 'reload' },
                 { role: 'forcereload' },
-                {
-                    label: 'ToggleDevTools',
-                    click() {
-                        win.webContents.toggleDevTools()
-
-                    }
-                },
+                // {
+                //     label: 'ToggleDevTools',
+                //     click() {
+                //         win.webContents.toggleDevTools()
+                //
+                //     }
+                // },
                 { type: 'separator' },
                 { role: 'resetzoom' },
                 { role: 'zoomin' },
@@ -70,7 +71,8 @@ function createWindow() {
         }
     ])
     tray.setToolTip('CreAI')
-    tray.setContextMenu(contextMenu)
+    tray.setContextMenu(contextMenu);
+    Menu.setApplicationMenu(contextMenu);
 
     win.on('close', (event) => {
         let choice = dialog.showMessageBox(win,

@@ -546,11 +546,9 @@ $(document).ready(function () {
     $('#btnOpenKeyDialog').on('click', () => {
         apidialog.open();
     })
-    if (window.localStorage.getItem("apiKey") == null) {
-        apidialog.open();
-    }
-
-
+    // if (window.localStorage.getItem("apiKey") == null) {
+    //     apidialog.open();
+    // }
 
     /* Alert Dialog */
     const dialog = mdc.dialog.MDCDialog.attachTo(document.querySelector('.mdc-dialog-deletediag'));
