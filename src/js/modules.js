@@ -63,7 +63,10 @@ function showNotificationWindow(ID) {
     let options = {
         width: 650,
         height: 600,
-        alwaysOnTop: true
+        alwaysOnTop: true,
+        webPreferences: {
+            nodeIntegration: true
+        }
     };
     let notifWinPath = path.join("file://", __dirname, "/notify.html")
     let notifWin = new BrowserWindow(options)
@@ -93,7 +96,10 @@ function openNotifWin(element) {
 function showAnalyzeWindow() {
     let options = {
         width: 900,
-        height: 650
+        height: 650,
+        webPreferences: {
+            nodeIntegration: true
+        }
     };
     let analyzeWinPath = path.join("file://", __dirname, "/analyze.html")
     let analyzeWin = new BrowserWindow(options)
@@ -106,7 +112,10 @@ function showAnalyzeWindow() {
 function showPredictWindow() {
     let options = {
         width: 900,
-        height: 700
+        height: 700,
+        webPreferences: {
+            nodeIntegration: true
+        }
     };
     let predictWinPath = path.join("file://", __dirname, "/predict.html")
     let predictWin = new BrowserWindow(options)

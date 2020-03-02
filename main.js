@@ -6,7 +6,7 @@ let win
 function createWindow() {
 
     win = new BrowserWindow({
-        width: 1600, height: 900,
+        width: 1800, height: 900,
         icon: path.join(__dirname, 'res', 'Stockifier.png'),
         webPreferences: {
             nodeIntegration: true
