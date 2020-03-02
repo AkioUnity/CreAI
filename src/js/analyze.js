@@ -26,7 +26,7 @@ function updatePriceChart(interval) {
     let conn = db.conn;
     conn.get('SELECT * FROM Stocks WHERE "Index"=?', stockID, (err, row) => {
         priceChart.options.title.text = row.StockName;
-        priceChart.options.scales.yAxes[0].scaleLabel.labelString = `Stock Price (${currencySymbol(row.Currency)})`;
+        priceChart.options.scales.yAxes[0].scaleLabel.labelString = `Coin Price (${currencySymbol(row.Currency)})`;
         priceChart.update();
     });
 
@@ -66,7 +66,7 @@ var priceChart = new Chart(ctx, {
         type: 'bar',
         datasets: [{
             type: 'line',
-            label: 'Stock Price',
+            label: 'Coin Price',
             fill: false,
             data: [],
             borderWidth: 2,
@@ -87,7 +87,7 @@ var priceChart = new Chart(ctx, {
         responsive: true,
         title: {
             display: true,
-            text: 'Select a Stock to view performance'
+            text: 'Select a Coin to view performance'
         },
         scales: {
             xAxes: [{
@@ -111,7 +111,7 @@ var priceChart = new Chart(ctx, {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: "Stock Price"
+                    labelString: "Coin Price"
                 }
             }, {
                 type: 'linear',
@@ -175,7 +175,7 @@ var indicatorChart = new Chart(ctx, {
         responsive: true,
         title: {
             display: true,
-            text: 'Select a Stock and Indicator to view characterstics'
+            text: 'Select a Coin and Indicator to view characterstics'
         },
         scales: {
             xAxes: [{

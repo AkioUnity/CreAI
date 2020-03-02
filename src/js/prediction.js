@@ -35,7 +35,7 @@ function updatePredictChart() {
     let conn = db.conn;
     conn.get('SELECT * FROM Stocks WHERE "Index"=?', $stock, (err, row) => {
         predictChart.options.title.text = row.StockName;
-        predictChart.options.scales.yAxes[0].scaleLabel.labelString = `Stock Price (${currencySymbol(row.Currency)})`;
+        predictChart.options.scales.yAxes[0].scaleLabel.labelString = `Coin Price (${currencySymbol(row.Currency)})`;
         predictChart.update();
         $('#currencySymbol').html(currencySymbol(row.Currency));
 
@@ -90,17 +90,17 @@ function updatePredictChart() {
                             epochs += 1;
                             loss = log.loss;
                             tf.tidy(()=>{
-                                
+
                                 pred = model.predict(tfPrices);
                                 pred.data().then(d => {
                                     ds = d.map((el) => minMaxInverseScaler(el, min, max));
                                     ds = ds.slice(d.length - 100, d.length);
-                                    
+
                                     predictChart.data.datasets[0].data = t;
                                     predictChart.data.datasets[1].data = ds;
-                                    
+
                                     predictChart.update();
-    
+
                                     openSnackbar(`Training model - Epoch ${epochs}: loss = ${log.loss} `);
                                 });
                             });
@@ -215,7 +215,7 @@ var predictChart = new Chart(ctx, {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: "Stock Price"
+                    labelString: "Coin Price"
                 }
             }]
         }

@@ -10,7 +10,9 @@ function createWindow() {
         icon: path.join(__dirname, 'res', 'Stockifier.png'),
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        autoHideMenuBar: true,
+        // transparent: true,
     })
     win.setMinimizable(false);
     let srcDir = "src/"

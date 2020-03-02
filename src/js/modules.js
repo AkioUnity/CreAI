@@ -282,7 +282,7 @@ function loadSpotlight(element, stockID) {
     let conn = db.conn;
     conn.get('SELECT * FROM Stocks WHERE "Index"=?', stockID, (err, row) => {
         myChart.options.title.text = row.StockName;
-        myChart.options.scales.yAxes[0].scaleLabel.labelString = `Stock Price (${currencySymbol(row.Currency)})`;
+        myChart.options.scales.yAxes[0].scaleLabel.labelString = `Coin Price (${currencySymbol(row.Currency)})`;
     });
     stockapi.getStockData(stockID, (data) => {
 
@@ -331,7 +331,7 @@ var myChart = new Chart(ctx, {
         type: 'bar',
         datasets: [{
             type: 'line',
-            label: 'Stock Price',
+            label: 'Coin Price',
             data: [],
             fill: false,
             borderWidth: 2,
@@ -362,7 +362,7 @@ var myChart = new Chart(ctx, {
         responsive: true,
         title: {
             display: true,
-            text: 'Select a Stock to view performance'
+            text: 'Select a Coin to view performance'
         },
         scales: {
             xAxes: [{
@@ -384,7 +384,7 @@ var myChart = new Chart(ctx, {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: "Stock Price"
+                    labelString: "Coin Price"
                 }
             }, {
                 type: 'linear',
