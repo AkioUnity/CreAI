@@ -1,0 +1,500 @@
+/*Fonts*/
+@font-face {
+    font-family: 'heeboregular';
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'heebothin';
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'inconsolataregular';
+    font-weight: normal;
+    font-style: normal;
+}
+
+body,
+button,
+#myInput,
+#saveCoins,
+#saveQuantities {
+  /*font-family: 'inconsolataregular', monospace;*/
+}
+.coin-list li .sym {
+  font-family: 'heeboregular', sans-serif;
+}
+
+
+.widget {
+  background: rgba(0, 0, 0, 0.95);
+  color: #fff;
+  padding: 25px;
+  min-width: 300px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+}
+
+.titlebar {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  opacity: 0;
+  position: fixed;
+  width: 94%;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.95);
+  top: 0;
+  left: 0;
+  padding: 8px 3% 3px;
+}
+  .titlebar:hover {
+    opacity: 1;
+  }
+  .titlebar .controls {
+    float: right;
+    line-height: 0;
+  }
+
+button {
+  -webkit-app-region: no-drag;
+  background-color: #000000;
+  color: #fff;
+  border: 1px solid #252525;
+  padding: 5px 10px;
+  margin: -1px 0px 0px 0px;
+}
+  header button {
+    background: none;
+    border: none;
+    outline: none;
+  }
+
+#close-btn,
+#min-btn {
+  height: 12px;
+  width: 12px;
+  background: none;
+  border: 2px solid #000;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  padding: 0;
+  -webkit-transition: all 150ms ease;
+  -moz-transition: all 150ms ease;
+  -ms-transition: all 150ms ease;
+  -o-transition: all 150ms ease;
+  transition: all 150ms ease;
+}
+#close-btn {
+  border-color: #ff2626;
+}
+  #close-btn:hover {
+    background: #ff2626;
+  }
+#min-btn {
+  border-color: #ffbd45;
+}
+  #min-btn:hover {
+    background: #ffbd45;
+  }
+
+.tabs button {
+  padding: 0;
+}
+.tabs button,
+.tabs button.active {
+  display: inline-block;
+  vertical-align: top;
+}
+.tabs button img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
+  -webkit-transition: all 150ms ease;
+  -moz-transition: all 150ms ease;
+  -ms-transition: all 150ms ease;
+  -o-transition: all 150ms ease;
+  transition: all 150ms ease;
+}
+  .tabs button:hover img,
+  .tabs button.active img {
+    opacity: 1;
+  }
+
+#portfolio-btn, #main-btn {
+  color: #fff;
+}
+
+.panel {
+  display: none;
+}
+
+ul {
+  list-style-type: none;
+}
+  .coin-list {
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    font-weight: 400;
+  }
+    #portfolio-list.coin-list {
+      font-size: 16px;
+      padding-top: 9px;
+    }
+    .coin-list li {
+      margin: 0px 0px 15px 0px;
+      padding: 0px 0px 15px 0px;
+      border-bottom: 1px solid #252525;
+    }
+      #portfolio-list.coin-list li {
+        margin-bottom: 10px;
+        padding-bottom: 0px;
+      }
+      .coin-list li:last-child {
+        border-bottom: none;
+      }
+      .coin-list li span {
+
+      }
+      .coin-list li span.draggable {
+        width: 100%;
+      }
+      .coin-list input[type="number"] {
+        border: none;
+        padding: 5px;
+        background: rgba(0, 0, 0, 0);
+        color: #fff;
+        max-width: 85px;
+        display: inline-block;
+        outline: none;
+      }
+      .coin-list .block {
+        display: inline-block;
+        vertical-align: top;
+      }
+        .coin-list .block label {
+          font-size: 12px;
+          display: block;
+          /*background: rgba(255, 255, 255, 0.1);*/
+
+          padding: 1px 2px 2px;
+        }
+        .coin-list .block .quantity-value {
+          color: #b2ff93;
+        }
+      .coin-list li .sym {
+        border: 1px solid #252525;
+        border-left-width: 2px;
+        padding: 0px 5px 0px;
+        font-size: 12px;
+      }
+        .coin-list li .sym:hover {
+          cursor: -webkit-grab;
+          border-top-color: #4c4c4c;
+          border-right-color: #4c4c4c;
+          border-bottom-color: #4c4c4c;
+          -webkit-transition: all 250ms ease;
+          -moz-transition: all 250ms ease;
+          -ms-transition: all 250ms ease;
+          -o-transition: all 250ms ease;
+          transition: all 250ms ease;
+        }
+        /*Symbol Colors*/
+        .coin-list li#coin-BTC .sym {
+          border-left-color: #F9A847;
+        }
+        .coin-list li#coin-XRP .sym {
+          border-left-color: #0997D2;
+        }
+        .coin-list li#coin-LTC .sym {
+          border-left-color: #F1F1F1;
+        }
+        .coin-list li#coin-NEO .sym,
+        .coin-list li#coin-GAS .sym {
+          border-left-color: #9CD115;
+        }
+        .coin-list li#coin-OMG .sym {
+          border-left-color: #1A53F0;
+        }
+        .coin-list li#coin-BCH .sym {
+          border-left-color: #F7931A;
+        }
+        .coin-list li#coin-DASH .sym {
+          border-left-color: #0475B6;
+        }
+        .coin-list li#coin-XMR .sym {
+          border-left-color: #FF6600;
+        }
+        .coin-list li#coin-ETC .sym {
+          border-left-color: #689274;
+        }
+         .coin-list li#coin-ZEC .sym {
+          border-left-color: #EFB948;
+        }
+         .coin-list li#coin-GNT .sym {
+          border-left-color: #00AFBF;
+        }
+         .coin-list li#coin-BAT .sym {
+          border-left-color: #662F92;
+        }
+         .coin-list li#coin-FCT .sym {
+          border-left-color: #E3A77D;
+        }
+         .coin-list li#coin-ARK .sym {
+          border-left-color: #CB0101;
+        }
+         .coin-list li#coin-DOGE .sym {
+          border-left-color: #BBA034;
+        }
+         .coin-list li#coin-CVC .sym {
+          border-left-color: #41BB2E;
+        }
+         .coin-list li#coin-MCO .sym {
+          border-left-color: #82344C;
+        }
+         .coin-list li#coin-UBQ .sym {
+          border-left-color: #00EA90;
+        }
+         .coin-list li#coin-DNT .sym {
+          border-left-color: #7CF7FA;
+        }
+      .coin-list li .change {
+        padding: 2px 3px 2px;
+        font-size: 14px;
+        float: right;
+        margin: 10px 0px 0px;
+        background: #000;
+      }
+        .coin-list li .change.positive {
+          color: #b2ff93;
+        }
+        .coin-list li .change.negative {
+          color: #ff6765;
+        }
+
+    .active {
+      display: block;
+    }
+    .inactive {
+      display: none;
+    }
+
+    /*Settings Page*/
+    #settings h3:first-child {
+      margin-top: 5px;
+    }
+    #myInput {
+      border: none;
+      padding: 0px 0px 10px;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0);
+      color: #fff;
+      outline: none;
+      border-bottom: 1px solid #252525;
+      display: block;
+      width: 100%;
+    }
+    #saveCoins,
+    #saveQuantities {
+      background-color: #000000;
+      color: #fff;
+      border: 1px solid #252525;
+      padding: 5px 10px;
+      margin: -1px 0px 0px 0px;
+    }
+    #coinlist {
+      margin: 15px 0px 0px 0px;
+      padding: 0;
+      max-height: 218px;
+      overflow-y: scroll;
+    }
+      #coinlist li {
+        position: relative;
+        margin: 0px 0px 5px 0px;
+      }
+      /* Custom checkboxes inspired by https://codepen.io/sderoij/pen/VvJJwE */
+      .checkbox-wrapper {
+        position: relative;
+        display: block;
+        margin: 15px 0px 0px;
+      }
+
+      #coinlist label,
+      .checkbox-styled-label {
+        height: 18px;
+        z-index: 0;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-indent: 24px;
+        overflow: hidden;
+      }
+        #coinlist label {
+          cursor: pointer;
+        }
+      #coinlist label div,
+      .checkbox-styled-label div {
+        height: 12px;
+        width: 12px;
+        border: solid 2px rgba(255, 255, 255, 0.6);
+        margin: 0;
+        border-radius: 50%;
+        transform: rotate(45deg);
+        transition: all 0ms ease-in-out, border 0ms ease 0ms;
+        position: absolute;
+        top: 0;
+        -webkit-transition: all 250ms ease;
+        -moz-transition: all 250ms ease;
+        -ms-transition: all 250ms ease;
+        -o-transition: all 250ms ease;
+        transition: all 250ms ease;
+      }
+        #coinlist input:hover + label div,
+        .checkbox-styled:hover + label div {
+          border-color: rgba(138, 255, 131, 0.9);
+        }
+      #coinlist input,
+      .checkbox-styled {
+        height: auto;
+        width: 18px;
+        margin: 0;
+        opacity: 0;
+        z-index: 1;
+        position: relative;
+        cursor: pointer;
+      }
+      #coinlist input:checked + label > div,
+      .checkbox-styled:checked + label > div {
+        border-radius: 0;
+        border-top: 0;
+        border-left: 0;
+        border-color: rgba(138, 255, 131, 0.9);
+        height: 15px;
+        width: 12px;
+        margin-top: -4px;
+        margin-left: 0px;
+        transform: rotate(40deg);
+        transition: all 0ms ease-in-out;
+      }
+        .checkbox-styled:checked + label > div {
+          width: 8px;
+          margin-left: 4px;
+        }
+    #tips {
+      font-size: 12px;
+    }
+      #tips li {
+
+      }
+
+    .creds {
+      font-size: 8px;
+      color: #252525;
+      margin: 15px 0px 0px 0px;
+    }
+      .creds a {
+        text-decoration: none;
+        color: #252525;
+      }
+
+    /*Portfolio*/
+    #portfolio-total-value {
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: 600;
+      margin: 15px 0px;
+    }
+    #portfolioChart {
+      max-height: 480px;
+      max-width: 100%;
+    }
+
+    /*Scrollbar*/
+    ::-webkit-scrollbar-corner {
+      background-color: #000;
+    }
+    ::-webkit-scrollbar {
+      background-color: rgba(0, 0, 0, 100);
+    }
+    ::-webkit-scrollbar {
+      width: .5em;
+      height: .5em;
+    }
+
+    ::-webkit-scrollbar-thumb:window-inactive,
+    ::-webkit-scrollbar-thumb {
+      background-color:  #252525;
+      -webkit-border-radius: 100px;
+    }
+       ::-webkit-scrollbar-thumb:hover {
+        background-color: #4c4c4c;
+       }
+
+    /*Select Boxes*/
+    .custom-select {
+      position: relative;
+      display: inline-block;
+    }
+    .custom-select select {
+      display: inline-block;
+      border: 1px solid #252525;
+      padding: 4px 3px 3px 5px;
+      margin: 0;
+      font: inherit;
+      outline: none;
+      line-height: 1.2;
+      background: #000000;
+      -webkit-appearance: none;
+      width: 145px;
+      color: #fff;
+    }
+    /* for Webkit's CSS-only solution */
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      .custom-select select {
+          padding-right:30px;
+      }
+    }
+    /* Since we removed the default focus styles, we have to add our own */
+    .custom-select select:focus {
+      -webkit-box-shadow: 0 0 3px 1px #00afc1;
+      -moz-box-shadow: 0 0 3px 1px #00afc1;
+      box-shadow: 0 0 3px 1px #00afc1;
+    }
+    /* Select arrow styling */
+    .custom-select:after {
+      content: "▼";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      font-size: 60%;
+      line-height: 30px;
+      padding: 0 7px;
+      background: #252525;
+      color: white;
+      pointer-events: none;
+    }
+
+/*Offline*/
+.error {
+  text-align: center;
+}
+  .error h2,
+  .error h4 {
+    font-family: Arial,Helvetica,sans-serif;
+  }
+  .error button.refresh {
+    cursor: pointer;
+    background: #41BB2E;
+    border: none;
+    color: #000;
+    font-weight: bold;
+  }

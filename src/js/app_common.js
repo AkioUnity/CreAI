@@ -5,14 +5,14 @@
 const remote = require('electron').remote;
 //user settings
 const settings = require('electron-settings');
-
+// settings.deleteAll();
 //default coins
 if(settings.has('user.coins')) {
   //do nothing because coins already set
 }
 else {
   settings.set('user', {
-    coins: 'BTC,ETH,LTC'
+    coins: ['BTC','ETH','BCH','LTC']
   });
 }
 //default base currency
@@ -46,9 +46,8 @@ function append(parent, el) {
 }
 
 const ul = document.getElementById('prices'); // Get the list where we will place coins
-const portfolio_ul = document.getElementById('portfolio-list');; 
+const portfolio_ul = document.getElementById('portfolio-list');;
 var url = 'https://min-api.cryptocompare.com/data/pricemultifull?fsyms='+settings.get('user.coins') +'&tsyms='+base +'&extraParams=crypto-price-widget';
-var pinCheck = document.getElementById("pin-to-top");
 
 function clearData() {
   ul.innerHTML = '';
@@ -59,9 +58,9 @@ function initData() {
   //need to redeclare the url variable here to grab the latest user coins, etc.
   var url = 'https://min-api.cryptocompare.com/data/pricemultifull?fsyms='+settings.get('user.coins') +'&tsyms='+base +'&extraParams=crypto-price-widget';
   fetch(url)
-    .then(  
-      function(response) {  
-        // Examine the response  
+    .then(
+      function(response) {
+        // Examine the response
         response.json().then(function(data) {
           //console.log(url);
           let pricesDISPLAY = data.DISPLAY; // display for everything except coin symbol
@@ -76,7 +75,7 @@ function initData() {
                 sym   = createNode('span');
             li.setAttribute("class", "price");
             li.setAttribute("id", "coin-"+[key]);
-            
+
             span.setAttribute("class", "draggable");
 
             //when adding a new coin, default sortorder to 999
@@ -85,9 +84,9 @@ function initData() {
               li.setAttribute("sortorder", 999);
             }
             else {
-              li.setAttribute("sortorder", settings.get(li.id+'.order'));  
+              li.setAttribute("sortorder", settings.get(li.id+'.order'));
             }
-            
+
             append(li, span);
             append(ul, li);
             i++;
@@ -106,7 +105,7 @@ function initData() {
             // Loop through all list items
             for (i = 0; i < li.length; i++) {
                li[i].setAttribute("sortorder", i);
-               
+
                var elementID = li[i].id;
                //alert(elementID);
                settings.set(elementID, { // coin-BTC
@@ -116,15 +115,6 @@ function initData() {
             } //for
             //alert(settings.get('coin.'+e+'.order'));
           }); //sortable
-
-          //Pin to Top - settings check - immediately set checkbox and window to saved state
-          if(settings.get('user.pinToTop') == 'yes') {
-            pinCheck.checked = true;
-            remote.getCurrentWindow().setAlwaysOnTop(true);
-          } else {
-            pinCheck.checked = false; 
-            remote.getCurrentWindow().setAlwaysOnTop(false);
-          }
 
           sortChildren(
               document.getElementById('prices'),
@@ -139,7 +129,7 @@ function initData() {
         updateData();
       } //function(response)
     ) //.then
-    .catch(function(err) {  
+    .catch(function(err) {
       console.log('Unable to connect!');
       var mainDiv = document.getElementById("main");
       var errorDiv = document.createElement('div');
@@ -165,9 +155,9 @@ function updateData() {
     //console.log(settings.get('user.coins'));
     fetch(url)
       .then(
-        function(response) {  
-          // Examine the text in the response  
-          response.json().then(function(data) { 
+        function(response) {
+          // Examine the text in the response
+          response.json().then(function(data) {
             let pricesDISPLAY = data.DISPLAY; // display for everything except coin symbol
             let pricesRAW     = data.RAW; // raw to get "BTC" instead of bitcoin symbol
             let portfolioSum  = 0;
@@ -204,13 +194,13 @@ function updateData() {
               let coinDISPLAY = pricesDISPLAY[key];
                 let coinDISPLAYchange = coinDISPLAY[base].CHANGEPCT24HOUR;
               let coinRAW = pricesRAW[key];
-              //console.log(coinDISPLAY);
+              // console.log(coinDISPLAY);
               let li = document.getElementById("coin-"+[key]),
                   span = document.querySelector("#coin-"+[key]+" span");
-              
+
               let coinSymbol  = coinRAW[base].FROMSYMBOL;
               let coinRate    = coinDISPLAY[base].PRICE.replace(/ /g,''); //.replace(/ /g,'') removes space after $
-              
+
               //replace currencies that have no symbols with easier to read formats
               if(coinRate.includes("AUD")) { coinRate = coinRate.replace("AUD", "A$"); }
               if(coinRate.includes("CAD")) { coinRate = coinRate.replace("CAD",  "C$"); }
@@ -224,7 +214,7 @@ function updateData() {
               if(coinRate.includes("ZAR")) { coinRate = coinRate.replace("ZAR", "R"); }
 
               //console.log(span);
-              span.innerHTML = '<span class="sym">' + coinSymbol + '</span> ' + coinRate + '<span class="change">' + coinDISPLAYchange + '%</span>'; 
+              span.innerHTML = '<span class="sym">' + coinSymbol + '</span> ' + coinRate + '<span class="change">' + coinDISPLAYchange + '%</span>';
 
               //Price Alert Test - PRO Feature
               /*
@@ -240,7 +230,7 @@ function updateData() {
 
               /*
               var alerted = localStorage.getItem('alerted') || '';
-              if(coinSymbol.includes("BTC") && coinRAW[base].PRICE >= "5723" && alerted != 'yes') { 
+              if(coinSymbol.includes("BTC") && coinRAW[base].PRICE >= "5723" && alerted != 'yes') {
                 let notif = new window.Notification('Price Alert', {
                   body: "BTC has gone above 5790!"
                 });
@@ -250,7 +240,7 @@ function updateData() {
                 }
               }
              */
-              
+
               // % Change
               let change = document.querySelector("#coin-"+[key]+" .change");
               if(coinDISPLAYchange > 0) {
@@ -271,7 +261,7 @@ function updateData() {
               let quantityNumber  = settings.get('quantity.'+[key]);
               let regp = /[^0-9.-]+/g;
               if(quantityNumber != null) {
-                quantityTotal   = parseFloat(coinRate.replace(regp, '')) * parseFloat(quantityNumber.replace(regp, ''));  
+                quantityTotal   = parseFloat(coinRate.replace(regp, '')) * parseFloat(quantityNumber.replace(regp, ''));
               }
               // sum of all total coin values
               portfolioSum += quantityTotal;
@@ -294,11 +284,11 @@ function updateData() {
               chartLabels.push(key);
               // Chart data
               chartData.push(quantityTotal);
-              
+
             } //for
 
             var newChartLabels = chartLabels;
-           
+
             // Chart
             var ctx = document.getElementById("portfolioChart");
             var myChart = new Chart(ctx, {
@@ -322,7 +312,7 @@ function updateData() {
                   }
               }
             }); //myChart
-            
+
           }); //response.json().then
         } //function(response)
       ) //then
@@ -347,11 +337,11 @@ document.getElementById('saveCoins').onclick = function(){
 ***********/
 var portfolio_list_container = document.querySelector('#portfolio-list');
 var portfolio_list = settings.get('user.coins');
-
+console.log(portfolio_list);
 //generate html from list of coins
 for (let key of Object.keys(portfolio_list)) {
   let coin = portfolio_list[key];
-  //console.log(coin);
+  // console.log(coin);
   let li    = createNode('li'),
       span  = createNode('span');
       sym   = createNode('span');
@@ -384,7 +374,7 @@ document.getElementById('saveQuantities').onclick = function(){
     //console.log(inputValue);
     settings.set(inputName, inputValue);
   }
-  
+
 
   // just reloading the entire app because I have yet to figure out how to add/remove a coin from the primary list without a page reload
   //location.reload(false);
@@ -394,7 +384,7 @@ document.getElementById('saveQuantities').onclick = function(){
 * SETTINGS
 ***********/
 // Settings - list of coins
-function loadJSON(callback) {   
+function loadJSON(callback) {
   //Stored local version of https://www.cryptocompare.com/api/data/coinlist/ for performance
   var file = './coinlist.json';
   var xobj = new XMLHttpRequest();
@@ -406,8 +396,8 @@ function loadJSON(callback) {
           callback(xobj.responseText);
         }
       };
-      xobj.send(null);  
-  
+      xobj.send(null);
+
 } //loadJSON
 
 // Generate the list of all coins
@@ -417,7 +407,7 @@ loadJSON(function(response) {
   var actual_JSON = JSON.parse(response);
   //alert(settings.get('user.coins'));
   //console.log(actual_JSON.Data);
-  
+
   //loop through data, get coin info, generate checkbox for each coin
   Object.keys(actual_JSON.Data).forEach(function(key) {
     //console.log(actual_JSON.Data[key].Name);
@@ -446,7 +436,7 @@ loadJSON(function(response) {
     label.appendChild(document.createTextNode(' ('+actual_JSON.Data[key].Name+')'));
     label.appendChild(div);
   }); //forEach
-  
+
 }); //loadJSON
 
 // Returns an array with values of the selected (checked) checkboxes in "frm"
@@ -462,51 +452,27 @@ function getSelectedChbox(frm) {
   return selchbox;
 }
 
-/***********
-* PIN TO TOP
-*************/
-pinCheck.onclick = function(event) {
-  var window = remote.getCurrentWindow();
-  var checkbox = event.target;
-  if(checkbox.checked) {
-    //Checkbox has been checked
-    window.setAlwaysOnTop(true); //immediately make the change to the window
-    settings.set('user.pinToTop', 'yes');
-  } else {
-    //Checkbox has been unchecked
-    window.setAlwaysOnTop(false);
-    settings.set('user.pinToTop', 'no');
-  }
-};
-
-/*******
-* APP UI
-********/
-
-//Window controls
-document.getElementById("close-btn").addEventListener("click", function (e) {
-  var window = remote.getCurrentWindow();
-  window.close();
-});
-document.getElementById("min-btn").addEventListener("click", function (e) {
-  var window = remote.getCurrentWindow();
-  window.minimize(); 
-});
-
+function showPanel(target) {
+    var sections = document.querySelectorAll('.panel');
+    for(var j=0; j < sections.length; j++) {
+        sections[j].style.display = 'none';
+    }
+    document.getElementById(target).style.display = 'block';
+}
 //Panel tabs
 var tabLinks = document.querySelectorAll('.tabs button');
-for (var i = 0; i < tabLinks.length; i++) { 
+for (var i = 0; i < tabLinks.length; i++) {
   tabLinks[i].onclick = function() {
     var target = this.getAttribute('href').replace('#', '');
     var sections = document.querySelectorAll('.panel');
     for(var j=0; j < sections.length; j++) {
       sections[j].style.display = 'none';
-    }    
-    document.getElementById(target).style.display = 'block';
-    for(var k=0; k < tabLinks.length; k++) {
-      tabLinks[k].removeAttribute('class');
     }
-    this.setAttribute('class', 'active');
+    document.getElementById(target).style.display = 'block';
+    // for(var k=0; k < tabLinks.length; k++) {
+    //   tabLinks[k].removeAttribute('class');
+    // }
+    // this.setAttribute('class', 'active');
     return false;
   }
 };

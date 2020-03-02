@@ -11,251 +11,319 @@
     <link rel="stylesheet" href="vendor/material-components-web.min.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Roboto" rel="stylesheet">
-
+    <link href="css/app.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <div class="d-flex" id="wrapper">
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="border-right d-flex flex-column justify-content-between" id="sidebar-wrapper">
 
-        <!-- Sidebar -->
-        <div class="border-right d-flex flex-column justify-content-between" id="sidebar-wrapper">
-
-            <div class="list-group list-group-flush">
-                <a href="#" onclick="showNotificationWindow()" class="list-group-item list-group-item-action ">Notify
-                    <i class="material-icons">
-                        notifications_active
-                    </i>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action" onclick="showAnalyzeWindow()">Analyse
-                    <i class="material-icons">
-                        timeline
-                    </i>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action" onclick="showPredictWindow()">
-                    Predict <i class="material-icons">
-                        insert_chart
-                    </i>
-                </a>
-                <div class="tabs">
-                <button id="main-btn" href="#main"><img src="images/appbar.stock.png"></button>
-                <button id="portfolio-btn" href="#portfolio"><img src="images/appbar.pie.png"></button>
-                <button id="settings-btn" href="#settings"><img src="images/appbar.settings.png"></button>
-                </div>
-
-            </div>
-            <div id="about">
-                <div>
-
-                    CreAI
-                </div>
-                <div class="hr"></div>
-                <div>v1.0.0</div>
-            </div>
+        <div class="list-group list-group-flush">
+            <a href="#" onclick="showNotificationWindow()" class="list-group-item list-group-item-action ">Notify
+                <i class="material-icons">
+                    notifications_active
+                </i>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="showAnalyzeWindow()">Analyse
+                <i class="material-icons">
+                    timeline
+                </i>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="showPredictWindow()">
+                Predict <i class="material-icons">insert_chart</i>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="showPanel('main')">
+                Coin Price  <i class="material-icons">attach_money</i>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="showPanel('portfolio')">
+                My Stock  <i class="material-icons">pie_chart</i>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="showPanel('settings')">
+                Settings  <i class="material-icons">settings</i>
+            </a>
         </div>
-        <!-- Sidebar end -->
+        <div id="about">
+            <div>
 
-        <div id="page-content-wrapper">
+                CreAI
+            </div>
+            <div class="hr"></div>
+            <div>v1.0.0</div>
+        </div>
+    </div>
+    <!-- Sidebar end -->
 
-            <header>
-                <nav class="navbar navbar-light bgmdc-primary-light justify-content-between l-40">
-                    <div>
-                        <button class="mdc-icon-button material-icons mdc-ripple-surface" id="menu-toggle">menu</button>
-                    </div>
-                    <div>
-                        <a class="navbar-brand">CreAI</a>
-                    </div>
-                    <div class="btn-group">
-                        <button class="mdc-button mdc-button--outlined" id="btnOpenKeyDialog">
-                            <i class="material-icons">
-                                vpn_key
-                            </i>
-                        </button>
-                        <button type="button" class="mdc-button" data-toggle="dropdown" aria-haspopup="true"
+    <div id="page-content-wrapper">
+
+        <header>
+            <nav class="navbar navbar-light bgmdc-primary-light justify-content-between l-40">
+                <div>
+                    <button class="mdc-icon-button material-icons mdc-ripple-surface" id="menu-toggle">menu</button>
+                </div>
+                <div>
+                    <a class="navbar-brand">CreAI</a>
+                </div>
+                <div class="btn-group">
+                    <button class="mdc-button mdc-button--outlined" id="btnOpenKeyDialog">
+                        <i class="material-icons">
+                            vpn_key
+                        </i>
+                    </button>
+                    <button type="button" class="mdc-button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <i class="material-icons">
-                                notification_important
-                            </i>
-                            <span class="badge badge-pill badge-danger notify-pill d-none"
-                                id="notificationNumber">0</span>
+                        <i class="material-icons">
+                            notification_important
+                        </i>
+                        <span class="badge badge-pill badge-danger notify-pill d-none"
+                              id="notificationNumber">0</span>
+                    </button>
+                    <div class="dropdown-menu notification-menu dropdown-menu-right">
+                        <!-- Dropdown menu links -->
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <h6>Notifications (<span id="notificationCount">0</span>)</h6>
+                        </div>
+                        <hr>
+                        <ul class="mdc-list" id="notificationList">
+                            <!-- Notifications List -->
+                        </ul>
+                    </div>
+                    <div class="ml-2">
+                        <button class="mdc-button mdc-button--raised material-icons"
+                                onclick="reloadWin()">replay
                         </button>
-                        <div class="dropdown-menu notification-menu dropdown-menu-right">
-                            <!-- Dropdown menu links -->
-                            <div class="container d-flex justify-content-center align-items-center">
-                                <h6>Notifications (<span id="notificationCount">0</span>)</h6>
-                            </div>
-                            <hr>
-                            <ul class="mdc-list" id="notificationList">
-                                <!-- Notifications List -->
-                            </ul>
-                        </div>
-                        <div class="ml-2">
-                            <button class="mdc-button mdc-button--raised material-icons"
-                                onclick="reloadWin()">replay</button>
 
-                        </div>
+                    </div>
+                </div>
+
+                <!-- Split dropleft button -->
+
+            </nav>
+        </header>
+
+        <div class="container-fluid d-flex">
+            <div class="widget">
+                <div id="main" class="panel active">
+                    <ul id="prices" class="coin-list">
+                    </ul>
+                </div><!-- #main -->
+
+                <div id="settings" class="panel">
+                    <h3>Choose Your Coins</h3>
+
+                    <div id="coinsearch">
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Type here to filter list">
+                        <button type="button" id="saveCoins">Save</button>
+                        <ul id="coinlist">
+                        </ul>
+                    </div><!-- #coinsearch -->
+
+                    <h3>Choose Your Base Currency</h3>
+                    <label class="custom-select">
+                        <select id="base" onchange="setBase()">
+                            <option value="BTC">BTC</option>
+                            <option value="USD">USD</option>
+                            <!-- 20 most traded currencies - https://en.wikipedia.org/wiki/Template:Most_traded_currencies -->
+                            <option value="AUD">AUD</option>
+                            <option value="BRL">BRL</option>
+                            <option value="CAD">CAD</option>
+                            <option value="CNY">CNY</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="HKD">HKD</option>
+                            <option value="INR">INR</option>
+                            <option value="JPY">JPY</option>
+                            <option value="KRW">KRW</option>
+                            <option value="MXN">MXN</option>
+                            <option value="NOK">NOK</option>
+                            <option value="NZD">NZD</option>
+                            <option value="RUB">RUB</option>
+                            <option value="SEK">SEK</option>
+                            <option value="SGD">SGD</option>
+                            <option value="TRY">TRY</option>
+                            <option value="ZAR">ZAR</option>
+                        </select>
+                    </label>
+
+
+                </div><!-- #settings -->
+
+                <div id="portfolio" class="panel">
+                    <div class="chart">
+
                     </div>
 
-                    <!-- Split dropleft button -->
+                    <ul id="portfolio-list" class="coin-list">
 
-                </nav>
-            </header>
+                    </ul>
 
-            <div class="container-fluid d-flex">
-                <div class="stocks w-50 main-container">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <button type="button" id="saveQuantities">Save</button>
 
-                        <h3>Your CryptoCurrencies</h3>
-                        <div class="dropdown">
-                            <button class="mdc-fab mdc-fab--extended" type="button" id="dropdownMenuButton"
+                    <div id="portfolio-total-value">Total Value: <span class="value"></span></div>
+
+                    <div class="chart-container" style="position: relative; height:40vh; width:94vw">
+                        <canvas id="portfolioChart" width="360" height="360"></canvas>
+                    </div>
+
+                    <!-- show what % each coin is of portfolio -->
+
+                    <!-- Enter avg. purchase price for each coin -->
+                    <!-- See % gain/loss -->
+                </div><!-- #portfolio -->
+            </div>
+            <div class="stocks w-50 main-container">
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <h3>Your CryptoCurrencies</h3>
+                    <div class="dropdown">
+                        <button class="mdc-fab mdc-fab--extended" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="material-icons mdc-fab__icon">add</span>
-                                <span class="mdc-fab__label">Add Coin</span>
+                            <span class="material-icons mdc-fab__icon">add</span>
+                            <span class="mdc-fab__label">Add Coin</span>
+                        </button>
+
+                        <div class="dropdown-menu p-2" style="width:15rem !important;"
+                             aria-labelledby="dropdownMenuButton">
+                            <div id="the-basics">
+                                <input class="typeahead form-control w-100" type="search"
+                                       placeholder="Search for a Coin" id="typeahead">
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+                            <button class="mdc-button mdc-button--raised mdc-button--fullwidth w-100"
+                                    id="btnAddStock">
+                                <span class="mdc-button__label">Proceed</span>
                             </button>
 
-                            <div class="dropdown-menu p-2" style="width:15rem !important;"
-                                aria-labelledby="dropdownMenuButton">
-                                <div id="the-basics">
-                                    <input class="typeahead form-control w-100" type="search"
-                                        placeholder="Search for a Coin" id="typeahead">
-                                </div>
 
-                                <div class="dropdown-divider"></div>
-                                <button class="mdc-button mdc-button--raised mdc-button--fullwidth w-100"
-                                    id="btnAddStock">
-                                    <span class="mdc-button__label">Proceed</span>
-                                </button>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stocks-list">
-                        <div class="mdc-text-field mdc-text-field--outlined w-100">
-                            <input class="mdc-text-field__input" type="search" id="txtStockSearch">
-                            <div class="mdc-notched-outline">
-                                <div class="mdc-notched-outline__leading"></div>
-                                <div class="mdc-notched-outline__notch">
-                                    <label class="mdc-floating-label">Search Coins</label>
-                                </div>
-                                <div class="mdc-notched-outline__trailing"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <ul class="list-group mdc-list" id="myStocks">
-                                <li class="list-group-item justify-content-center align-items-center">
-                                    Loading Coin Data..
-                                </li>
-
-
-                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="spotlight w-50 main-container">
-                    <h3>
-                        Spotlight
-                    </h3>
-                    <div class="conatiner">
-                        <canvas id="myChart" width="400" height="400">
-                            Loading...
-                        </canvas>
+                <div class="stocks-list">
+                    <div class="mdc-text-field mdc-text-field--outlined w-100">
+                        <input class="mdc-text-field__input" type="search" id="txtStockSearch">
+                        <div class="mdc-notched-outline">
+                            <div class="mdc-notched-outline__leading"></div>
+                            <div class="mdc-notched-outline__notch">
+                                <label class="mdc-floating-label">Search Coins</label>
+                            </div>
+                            <div class="mdc-notched-outline__trailing"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="list-group mdc-list" id="myStocks">
+                            <li class="list-group-item justify-content-center align-items-center">
+                                Loading Coin Data..
+                            </li>
+
+
+                        </ul>
                     </div>
                 </div>
             </div>
+            <div class="spotlight w-50 main-container">
+                <h3>
+                    Spotlight
+                </h3>
+                <div class="conatiner">
+                    <canvas id="myChart" width="400" height="400">
+                        Loading...
+                    </canvas>
+                </div>
+            </div>
+
         </div>
     </div>
-    <!-- /#page-content-wrapper -->
-    <!--  <header>
-        <nav class="navbar navbar-light bg-light justify-content-between l-40">
-            <div>
-                <button class="btn btn-primary"><i class="material-icons">menu</i></button>
-                <a class="navbar-brand">CreAI</a>
-            </div>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </nav>
-    </header> -->
+</div>
+<!-- /#page-content-wrapper -->
+<!--  <header>
+    <nav class="navbar navbar-light bg-light justify-content-between l-40">
+        <div>
+            <button class="btn btn-primary"><i class="material-icons">menu</i></button>
+            <a class="navbar-brand">CreAI</a>
+        </div>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+</header> -->
 
-    <!-- <sidebar class="d-flex justify-content-center align-items-center h-100">
-        <div class="sidebar-title"></div>
-        <div class="sidebar-content"></div>
-    </sidebar>
+<!-- <sidebar class="d-flex justify-content-center align-items-center h-100">
+    <div class="sidebar-title"></div>
+    <div class="sidebar-content"></div>
+</sidebar>
 
- -->
+-->
 
-    <!-- Stock API Key Dialog -->
-    <div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="apikeyDialog"
-        aria-describedby="apikeyDialog" id="apikeyDialog">
-        <div class="mdc-dialog__container">
-            <div class="mdc-dialog__surface">
-                <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-                <h2 class="mdc-dialog__title">
-                    Add/Change API Key
-                </h2>
-                <div class="mdc-dialog__content">
-                    <div class="form-group m-2 w-80">
-                        <input type="text" class="form-control" placeholder="Your key" id="txtApiKey" required>
-                    </div>
+<!-- Stock API Key Dialog -->
+<div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="apikeyDialog"
+     aria-describedby="apikeyDialog" id="apikeyDialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface">
+            <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+            <h2 class="mdc-dialog__title">
+                Add/Change API Key
+            </h2>
+            <div class="mdc-dialog__content">
+                <div class="form-group m-2 w-80">
+                    <input type="text" class="form-control" placeholder="Your key" id="txtApiKey" required>
                 </div>
-                <footer class="mdc-dialog__actions">
-                    <!--<a onclick="openAPIWin()" href="javascript:void(0)">Obtain API Key</a>-->
-                    <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-                        <span class="mdc-button__label">Cancel</span>
-                    </button>
-                    <button type="button" class="mdc-button mdc-button--raised mdc-dialog__button"
+            </div>
+            <footer class="mdc-dialog__actions">
+                <!--<a onclick="openAPIWin()" href="javascript:void(0)">Obtain API Key</a>-->
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button type="button" class="mdc-button mdc-button--raised mdc-dialog__button"
                         data-mdc-dialog-action="yes" onclick="setApiKey()">
-                        <span class="mdc-button__label">Confirm</span>
-                    </button>
-                </footer>
-            </div>
-        </div>
-        <div class="mdc-dialog__scrim"></div>
-    </div>
-
-
-    <!-- Alert Dialog -->
-    <div class="mdc-dialog mdc-dialog-deletediag" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
-        aria-describedby="my-dialog-content">
-        <div class="mdc-dialog__container">
-            <div class="mdc-dialog__surface">
-                <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-                <h2 class="mdc-dialog__title" id="my-dialog-title">
-
-                </h2>
-                <div class="mdc-dialog__content" id="my-dialog-content">
-
-                </div>
-                <footer class="mdc-dialog__actions">
-                    <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-                        <span class="mdc-button__label">Cancel</span>
-                    </button>
-                    <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">
-                        <span class="mdc-button__label">Delete</span>
-                    </button>
-                </footer>
-            </div>
-        </div>
-        <div class="mdc-dialog__scrim"></div>
-    </div>
-
-    <!-- Snackbar -->
-    <div class="mdc-snackbar">
-        <div class="mdc-snackbar__surface">
-            <div class="mdc-snackbar__label" role="status" aria-live="polite" id="snackbar-msg">
-                <!-- Snackbar message here populated through JS -->
-            </div>
-            <div class="mdc-snackbar__actions">
-                <button type="button" class="mdc-button mdc-snackbar__action">OK</button>
-            </div>
+                    <span class="mdc-button__label">Confirm</span>
+                </button>
+            </footer>
         </div>
     </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
 
 
+<!-- Alert Dialog -->
+<div class="mdc-dialog mdc-dialog-deletediag" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+     aria-describedby="my-dialog-content">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface">
+            <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+            <h2 class="mdc-dialog__title" id="my-dialog-title">
+
+            </h2>
+            <div class="mdc-dialog__content" id="my-dialog-content">
+
+            </div>
+            <footer class="mdc-dialog__actions">
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">
+                    <span class="mdc-button__label">Delete</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+
+<!-- Snackbar -->
+<div class="mdc-snackbar">
+    <div class="mdc-snackbar__surface">
+        <div class="mdc-snackbar__label" role="status" aria-live="polite" id="snackbar-msg">
+            <!-- Snackbar message here populated through JS -->
+        </div>
+        <div class="mdc-snackbar__actions">
+            <button type="button" class="mdc-button mdc-snackbar__action">OK</button>
+        </div>
+    </div>
+</div>
 
 
 </body>
@@ -271,5 +339,8 @@
 
 <script src="js/modules.js"></script>
 
+<script src="js/app_common.js"></script>
+<script src="js/html.sortable.min.js"></script>
+<script src="js/Chart.min.js"></script>
 
 </html>

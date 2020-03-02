@@ -1,14 +1,12 @@
 const remote = require('electron').remote;
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path')
-const dbPath = path.join(remote.app.getAppPath(), 'stocksDB.db')
+const dbPath = path.join(remote.app.getAppPath(), 'coinDB.db')
 console.log(dbPath)
 const db = new sqlite3.Database(dbPath);
 
 function initDB() {
-
     db.serialize(function () {
-
         db.run(`CREATE TABLE IF NOT EXISTS "Stocks"(
             "ID"	INTEGER,
             "StockName"	TEXT,
@@ -39,6 +37,5 @@ function initDB() {
     return db
 }
 initDB();
-
 module.exports.initDB = initDB;
 module.exports.conn = db;

@@ -5,14 +5,14 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "postinstall": "install-app-deps",
-    "postinstall_new": "electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps",
     "rebuild": "electron-rebuild -f -w sqlite3",
     "build-osx": "electron-packager ./ --app-version 1.0.0 --platform darwin --icon ./res/Stockifier.png.icns --prune=true --out ./dist --overwrite",
     "build-linux": "electron-packager ./ --app-version 1.0.0 --platform linux --icon ./res/Stockifier.png --prune=true --out ./dist --overwrite",
     "build-win32": "electron-packager ./ --app-version 1.0.0 --platform win32 --prune=true --out ./dist --overwrite",
     "build-all": "npm run build-osx && npm run build-win32 && npm run build-linux",
-    "dist": "build"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "build": {
     "appId": "com.creai.app",

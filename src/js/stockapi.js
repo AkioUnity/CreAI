@@ -3,6 +3,7 @@ const alpha = require('alphavantage')({ key: apiKey })
 const https = require('https')
 
 function searchStock(stockName, callback) {
+    return;
     let apiUrl = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + stockName + '&apikey=' + apiKey
     https.get(apiUrl, (res) => {
         res.on('data', (data) => {
@@ -32,8 +33,6 @@ function getStockUpdates(stockID, callback) {
 }
 
 function getStockData(stockID, callback) {
-
-
     alpha.data.intraday(stockID, 'compact', 'json', '5min').then(data => {
 
         data = data['Time Series (5min)'];
